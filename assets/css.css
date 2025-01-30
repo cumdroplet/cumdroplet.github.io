@@ -1,0 +1,20 @@
+body {
+	font: 20px monospace, monospace;
+}
+
+@media (max-width: 850px) {
+	body {
+		font-size: 2vw;
+	}
+}
+
+pre {
+	display: table;
+	margin: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: black;
+		color: white;
+}
