@@ -2,7 +2,7 @@ body {
 	font: 20px monospace, monospace;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1000px) {
 	body {
 		font-size: 2vw;
 	}
