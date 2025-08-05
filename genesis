@@ -1,0 +1,54 @@
+#!/bin/sh -e
+#
+# Simple static site builder.
+# Forked from:
+# https://github.com/kisslinux/kisslinux.github.io/blob/master/make
+
+
+txt2html() {
+    # Transform plain-text input into HTML and insert it into the template.
+    # Right now this only does some URL transformations.
+
+    # Convert all plain-text links to HTML links (<a href="X">X</a>).
+    sed -E "s|([^\"\'\>=])(http[s]?://[^[:space:]]*)|\1<a href=\2>\2</a>|g" |
+    sed -E "s|^(http[s]?://[^[:space:]]*)|<a href=\1>\1</a>|g" |
+
+    # Convert @/words to relative HTML links.
+    # Convert #/words to absolute HTML links.
+    sed -E "s|(@/)([^ \)]*)|\1<a href=$1/\2>\2</a>|g" |
+    sed -E "s|(\\#/)([^ \)]*)|\1<a href=/\2>\2</a>|g" |
+
+    # Insert the page into the template.
+    sed -E '/%%CONTENT%%/r /dev/stdin' template.html |
+    sed -E '/%%CONTENT%%/d' |
+
+    # Insert the page path into the source URL.
+    sed -E "s	%%TITLE%%	${2:-Home}	"
+}
+
+page() {
+    pp=${1%/*}
+    title=${1##*/}
+    title=${title%%.txt}
+    title=${title##index}
+
+    mkdir -p "public/$pp"
+
+    # Generate HTML from txt files.
+    case $1 in *.txt)
+        txt2html "${pp#.}" "$title" < "content/$1" > "public/${1%%.txt}.html"
+    esac
+
+    cp -Lf "content/$1" "public/$1"
+}
+
+main() {
+    (cd content && find . ! -type d) |
+
+    while read -r page; do
+        printf '%s\n' "CC $page"
+        page "$page"
+    done
+}
+
+main "$@"

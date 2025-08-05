@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Flockless - Pigeon's simple website.</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<meta name="description" content="Pigeon's home page" />
-	<meta name="theme-color" content="#000000" />
-	<link rel="stylesheet" type="text/css" href="assets/css.css" />
-	<link rel="icon" href="assets/ico.ico">
-</head>
-<body>
-<pre>
      1_1____
     (oIo)|  )\
 +---(---(----)----------------------------------c-c----------------------------+
@@ -59,6 +46,3 @@ _______________________________________________________________________________
        ||    (__)
        ||w--||     \|/
    \|/
-</pre>
-</body>
-</html>
